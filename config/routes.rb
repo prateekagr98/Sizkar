@@ -1,5 +1,6 @@
 Sizkar::Application.routes.draw do
-  get "welcome_pages/welcome"
+  #get "welcome_pages/welcome"
+  root :to => 'welcome_pages#welcome'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
