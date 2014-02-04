@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Sizkar::Application.config.secret_key_base = '39d3323123256f07600a1faa41b4633ff27383e76cf87542f0934f11d5432e63e4627515f854293f2ec52eedc80f9028ebd5d036cefa70d60fb6158d526c5949'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Sizkar::Application.config.secret_key_base = secure_token
